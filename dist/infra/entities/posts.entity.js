@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.PostsEntity = void 0;
 const typeorm_1 = require("typeorm");
 const base_entity_1 = require("./base.entity");
+const users_entity_1 = require("./users.entity");
+const comments_entity_1 = require("./comments.entity");
+const views_entity_1 = require("./views.entity");
 let PostsEntity = exports.PostsEntity = class PostsEntity extends base_entity_1.BaseEntity {
 };
 __decorate([
@@ -30,6 +33,19 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
     __metadata("design:type", String)
 ], PostsEntity.prototype, "photo", void 0);
+__decorate([
+    (0, typeorm_1.ManyToOne)(() => users_entity_1.UsersEntity, (user) => user.posts),
+    (0, typeorm_1.JoinColumn)({ name: 'user_id' }),
+    __metadata("design:type", users_entity_1.UsersEntity)
+], PostsEntity.prototype, "user", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => comments_entity_1.CommentsEntity, (comment) => comment.post),
+    __metadata("design:type", Array)
+], PostsEntity.prototype, "comments", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => views_entity_1.ViewsEntity, (view) => view.post),
+    __metadata("design:type", Array)
+], PostsEntity.prototype, "views", void 0);
 exports.PostsEntity = PostsEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'posts' })
 ], PostsEntity);

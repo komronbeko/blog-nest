@@ -8,7 +8,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthGuard = void 0;
 const common_1 = require("@nestjs/common");
@@ -18,20 +17,25 @@ let AuthGuard = exports.AuthGuard = class AuthGuard {
         this.jwt = jwt;
     }
     canActivate(context) {
-        const request = context.switchToHttp().getRequest();
-        const token = request.headers.authorization?.split(' ')[1] ??
-            request.headers.authorization;
-        if (!token)
-            return false;
-        const verified = this.jwt.verify(token, {
-            secret: process.env.JWT_SEC_KEY,
-        });
-        request.userId = verified.id;
-        return true;
+        try {
+            const request = context.switchToHttp().getRequest();
+            const token = request.headers.authorization?.split(' ')[1] ??
+                request.headers.authorization;
+            if (!token)
+                return false;
+            const verified = this.jwt.verify(token, {
+                secret: process.env.JWT_SEC_KEY,
+            });
+            request.userId = verified.id;
+            return true;
+        }
+        catch (error) {
+            throw new common_1.HttpException('Invlaid token', 403);
+        }
     }
 };
 exports.AuthGuard = AuthGuard = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [jwt_1.JwtService])
 ], AuthGuard);
 //# sourceMappingURL=auth.guard.js.map

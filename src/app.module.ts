@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AuthModule } from './api/auth/auth.module';
 import { FileModule } from './api/file/file.module';
+import { PostsModule } from './api/posts/posts.module';
+import { CommentsModule } from './api/comments/comments.module';
+import { ViewsModule } from './api/views/views.module';
 
 @Module({
   imports: [
@@ -16,6 +19,9 @@ import { FileModule } from './api/file/file.module';
     }),
     AuthModule,
     FileModule,
+    PostsModule,
+    CommentsModule,
+    ViewsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

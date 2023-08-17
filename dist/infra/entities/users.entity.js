@@ -12,6 +12,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersEntity = void 0;
 const typeorm_1 = require("typeorm");
 const base_entity_1 = require("./base.entity");
+const posts_entity_1 = require("./posts.entity");
+const comments_entity_1 = require("./comments.entity");
+const views_entity_1 = require("./views.entity");
 let UsersEntity = exports.UsersEntity = class UsersEntity extends base_entity_1.BaseEntity {
 };
 __decorate([
@@ -30,6 +33,18 @@ __decorate([
     (0, typeorm_1.Column)({ nullable: false }),
     __metadata("design:type", String)
 ], UsersEntity.prototype, "photo", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => posts_entity_1.PostsEntity, (post) => post.user),
+    __metadata("design:type", Array)
+], UsersEntity.prototype, "posts", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => comments_entity_1.CommentsEntity, (comment) => comment.user),
+    __metadata("design:type", Array)
+], UsersEntity.prototype, "comments", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => views_entity_1.ViewsEntity, (view) => view.user),
+    __metadata("design:type", Array)
+], UsersEntity.prototype, "views", void 0);
 exports.UsersEntity = UsersEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'users' })
 ], UsersEntity);

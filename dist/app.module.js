@@ -13,6 +13,9 @@ const app_service_1 = require("./app.service");
 const typeorm_1 = require("@nestjs/typeorm");
 const auth_module_1 = require("./api/auth/auth.module");
 const file_module_1 = require("./api/file/file.module");
+const posts_module_1 = require("./api/posts/posts.module");
+const comments_module_1 = require("./api/comments/comments.module");
+const views_module_1 = require("./api/views/views.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -27,6 +30,9 @@ exports.AppModule = AppModule = __decorate([
             }),
             auth_module_1.AuthModule,
             file_module_1.FileModule,
+            posts_module_1.PostsModule,
+            comments_module_1.CommentsModule,
+            views_module_1.ViewsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
